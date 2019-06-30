@@ -52,55 +52,49 @@ $(document).ready(function(){
     var players = [p1, p2, p3, p4]
 
     var yourPlayer;
-    var enemies;
+    var yourOpp;
     var select;
     var log = "";
+    var p1_lock = false
+    var p2_lock = false
+    
 
     $(".player-select").click(function(){
-        select = $.trim($(this).text()).substring(0,8)      //get name from player choice
-        console.log("Selected: "+select)
-        if(select == p1.name){
-            yourPlayer = p1
+        if(!p1_lock){
+            select = $.trim($(this).text()).substring(0,8)      //get character that player chose
+            // console.log("Selected: "+select)
+            for(var i=0;i<4;i++){
+                if (select == players[i].name) {
+                    yourPlayer = players[i]                     // assign character to yourPlayer
+                }
+            }
+            // console.log("yourPlayer: "+yourPlayer.name)
+            
+            $(this).css("visibility","hidden")                  //place on placard
+            $(".p-atk-name").text(yourPlayer.name).css("color","black");
+            $(".p-atk-hp").text(yourPlayer.hp+"HP").css("color","black")
+            $(this).html("")
+            $(".activity-log").append("You selected: "+yourPlayer.name+"<br>")
+            p1_lock = true
         }
-        else if(select == p2.name){
-            yourPlayer = p2
-        }
-        else if(select == p3.name){
-            yourPlayer = p3
-        }
-        else if(select == p4.name){
-            yourPlayer = p4
-        }
-        console.log("yourPlayer: "+yourPlayer.name)
-        
-        
-        
-        
-        
-        
-        // for(var i=0;i<4;i++){
-        //     var playerObj = players[i]
-        //     // console.log("playerObj "+typeof playerObj)
-        //     var name = players[i].name
-        //     console.log(name+" "+select)
-        //     if(name.equals(select)){
-        //         yourPlayer = players[i]         // assign player obj to yourPlayer
-        //         yp_name = yourPlayer.name
-        //         console.log("yp_name: "+yp_name)
-        //     }
-        //     else{
-        //         console.log("didnt work")
-        //     }
-        // }
-        // console.log("You selected: " + yourPlayer["name"])
-        // log += "You selected: "+yourPlayer[name]+" ";
+        else if(!p2_lock){
+            select = $.trim($(this).text()).substring(0, 8)      //get enemy choice from player 
+            // console.log("Selected: "+select)
+            for (var i = 0; i < 4; i++) {
+                if (select == players[i].name) {
+                    yourOpp = players[i]                     // assign character to yourOpp
+                }
+            }
+            // console.log("yourOpp: "+yourPlayer.name)
 
-        $(this).css("visibility","hidden")
-        $(".p-atk-name").text(yourPlayer.name).css("color","black");
-        $(".p-atk-hp").text(yourPlayer.hp+"HP").css("color","black")
-        $(this).html("")
-        $(".activity-log").append("You selected: "+yourPlayer.name)
-
+            $(this).css("visibility", "hidden")                  //place on placard
+            $(".p-def-name").text(yourOpp.name).css("color", "black");
+            $(".p-def-hp").text(yourOpp.hp  + "HP").css("color", "black")
+            $(this).html("")
+            $(".activity-log").append("Your opponent is: " + yourOpp.name)
+            p2_lock = true
+        }
+ 
     })
 
 
