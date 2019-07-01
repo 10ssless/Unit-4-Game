@@ -61,6 +61,7 @@ $(document).ready(function(){
     var oppHP;
     var atk_boost;
     var atk_lock = false;
+    var opps = 3;
     
     
     $(".player-select").click(function(){
@@ -79,7 +80,9 @@ $(document).ready(function(){
             $(".p-atk-hp").text(yourPlayer.hp+"HP").css("color","black")
             $(this).html("")
             $(".activity-log").append("You selected: "+yourPlayer.name+"<br>")
+            $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
             p1_lock = true                                      // lock in yourPlayer
+            yourHP = yourPlayer.hp 
         }
         else if(!p2_lock){
             select = $.trim($(this).text()).substring(0, 8)      //get enemy choice from player 
@@ -97,10 +100,10 @@ $(document).ready(function(){
             $(".p-def-hp").text(yourOpp.hp  + "HP").css("color", "black")
             $(this).html("")
             $(".activity-log").append("Your opponent is: " + yourOpp.name + " <br>")
+            $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
             p2_lock = true                                  // lock in yourOpp
-            $(".atk-button").css("visibility", "visible")
-            yourHP = yourPlayer.hp                      // assign variables for hp & atk values to modify during battle
-            oppHP = yourOpp.hp
+            $(".atk-button").css("visibility", "visible")                     
+            oppHP = yourOpp.hp                                  // assign variables for hp & atk values to modify during battle
             atk_boost = yourPlayer.atk;
             console.log("you: "+yourPlayer.name)
             console.log("enemy: "+yourOpp.name)
@@ -112,35 +115,63 @@ $(document).ready(function(){
         if(!atk_lock){                                  // prevents extra attack clicks
             oppHP = oppHP - atk_boost                   // update hp values
             yourHP = yourHP - yourOpp.ctr_atk           // print to activity log
+            console.log("Your HP: "+yourHP)
+            console.log("Opp HP: "+oppHP)
             $(".p-atk-hp").text(yourHP + "HP")
             $(".p-def-hp").text(oppHP + "HP")
             $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
             $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
+            $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
             atk_boost += atk_boost                      // increase your attack power
-            if(yourHP <= 0){                            // if you lose
+            if(yourHP <=0 && oppHP <= 0){
                 atk_lock = true                         
                 $(".player-atk").css("background", "gray")
                 $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
                 $(".p-atk-hp").css("color", "red")
-                $(".activity-log").append("You were defeated by "+yourOpp.name+".<br>")
+                $(".player-def").css("background", "gray")
+                $(".p-def-name").css("color", "rgba(228, 228, 228, 0.536)");
+                $(".p-def-hp").css("color", "red")
+                $(".activity-log").append("You defeated " + yourOpp.name +", but were killed in the process.<br><span class='try'>Try again.</span><br>")
+                $(".activity-log").animate({ scrollTop: $('.activity-log').height() })
+                $(".try").fadeToggle(2000).fadeToggle(2000).fadeToggle(2000).fadeToggle(2000)
                 $(".atk-button").css("visibility", "hidden")
+                $(".atk-button:hover").css("visibility", "hidden")
+
+            }
+            else if(yourHP <= 0){                            // if you lose
+                atk_lock = true                         
+                $(".player-atk").css("background", "gray")
+                $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
+                $(".p-atk-hp").css("color", "red")
+                $(".activity-log").append("You were defeated by " + yourOpp.name +".<br><span class='try'>Try again.</span><br>")
+                $(".activity-log").animate({ scrollTop: $('.activity-log').height() })
+                $(".try").fadeToggle(2000).fadeToggle(2000).fadeToggle(2000).fadeToggle(2000)
+                $(".atk-button").css("visibility", "hidden")
+                $(".atk-button:hover").css("visibility", "hidden")
             }
             else if(oppHP <= 0){                        // if you win
                 atk_lock = true
+                opps -= 1;
                 $(".player-def").css("background","gray")
                 $(".p-def-name").css("color", "rgba(228, 228, 228, 0.536)");
                 $(".p-def-hp").css("color", "red")
-                $(".activity-log").append("You defeated " + yourOpp.name +". <br>Select your next opponent<span id='ellipsis'>.</span><br>")
-                p2_lock = false                         // allow next character click to be next enemy
-                setInterval(function () {
-                    var th = $("#ellipsis");
-                    if (th.text().length < 3) {
-                        th.text(th.text() + ".");
-                    } else {
-                        th.text("");
-                    }
-                }, 600);
-                
+                if(opps == 0){
+                    $(".activity-log").append("You defeated " + yourOpp.name +". <br>You are the champion.<br>")
+                    $(".activity-log").animate({ scrollTop: $('.activity-log').height()});
+                }
+                else{
+                    $(".activity-log").append("You defeated " + yourOpp.name +". <br>Select your next opponent<span class='ellipsis'>.</span><br>")
+                    $(".activity-log").animate({ scrollTop: $('.activity-log').height()});
+                    p2_lock = false                         // allow next character click to be next enemy
+                    setInterval(function () {
+                        var th = $(".ellipsis");
+                        if (th.text().length < 4) {
+                            th.text(th.text() + ".");
+                        } else {
+                            th.text("");
+                        }
+                    }, 800);
+                }
             }
 
         }
