@@ -57,8 +57,11 @@ $(document).ready(function(){
     var log = "";
     var p1_lock = false
     var p2_lock = false
+    var yourHP;
+    var oppHP;
+    var atk_boost;
     
-
+    
     $(".player-select").click(function(){
         if(!p1_lock){
             select = $.trim($(this).text()).substring(0,8)      //get character that player chose
@@ -75,7 +78,7 @@ $(document).ready(function(){
             $(".p-atk-hp").text(yourPlayer.hp+"HP").css("color","black")
             $(this).html("")
             $(".activity-log").append("You selected: "+yourPlayer.name+"<br>")
-            p1_lock = true
+            p1_lock = true                                      // lock in yourPlayer
         }
         else if(!p2_lock){
             select = $.trim($(this).text()).substring(0, 8)      //get enemy choice from player 
@@ -86,15 +89,42 @@ $(document).ready(function(){
                 }
             }
             // console.log("yourOpp: "+yourPlayer.name)
-
+            
             $(this).css("visibility", "hidden")                  //place on placard
             $(".p-def-name").text(yourOpp.name).css("color", "black");
             $(".p-def-hp").text(yourOpp.hp  + "HP").css("color", "black")
             $(this).html("")
-            $(".activity-log").append("Your opponent is: " + yourOpp.name)
-            p2_lock = true
+            $(".activity-log").append("Your opponent is: " + yourOpp.name + " <br>")
+            p2_lock = true                                  // lock in yourOpp
+            $(".atk-button").css("visibility", "visible")
+            yourHP = yourPlayer.hp
+            oppHP = yourOpp.hp
+            atk_boost = yourPlayer.atk;
         }
- 
+        
+    })
+    
+    // var yourHP = yourPlayer.hp
+    // var oppHP = yourOpp.hp
+    // console.log("Your HP: " + yourHP)
+    // console.log("Opp HP: " + oppHP)
+    // var atk_boost;
+    // var yourHP;
+    // var oppHP;
+    
+    
+    $(".atk-button").click(function(){
+        oppHP = oppHP - atk_boost
+        yourHP = yourHP - yourOpp.ctr_atk
+        console.log("Your HP: "+yourHP)
+        console.log("Opp HP: "+oppHP)
+        $(".p-atk-hp").text(yourHP + "HP")
+        $(".p-def-hp").text(oppHP + "HP")
+        $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
+        $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
+        atk_boost += atk_boost
+        
+
     })
 
 

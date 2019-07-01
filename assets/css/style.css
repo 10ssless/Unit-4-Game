@@ -17,14 +17,22 @@ h1{
     background: rgb(164, 186, 143)
 }
 
+.player-select:hover .hp{
+    background:rgba(228, 228, 228, 0.536)
+}
+
+
 .hp {
     position: absolute;
-    right:27px;
-    top: 43px;
+    right: 3px;
+    top: 3px;
     text-transform: uppercase;
     font-size: 16px;
-    
+    padding:10px; 
+
 }
+
+
 
 
 
@@ -40,8 +48,29 @@ h1{
     color: rgb(255, 101, 101);
 }
 
+.p-atk-hp,.p-def-hp{
+    background:rgba(228, 228, 228, 0.536)
+}
+
 .activity-log {
     font-size: 12px;
     font-family: 'Courier New', Courier, monospace;
 }
 
+button {
+    border: none;
+    
+}
+
+button:hover {
+    text-decoration: underline
+}
+
+.atk-button {
+    visibility: hidden;
+    float:left;
+    margin-left:35%;
+    /* margin-right:30%; */
+    transition-property: visibility;
+    transition-duration: 1s;
+}
