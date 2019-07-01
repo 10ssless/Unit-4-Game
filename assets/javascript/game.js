@@ -60,6 +60,7 @@ $(document).ready(function(){
     var yourHP;
     var oppHP;
     var atk_boost;
+    var atk_lock = false;
     
     
     $(".player-select").click(function(){
@@ -114,16 +115,32 @@ $(document).ready(function(){
     
     
     $(".atk-button").click(function(){
-        oppHP = oppHP - atk_boost
-        yourHP = yourHP - yourOpp.ctr_atk
-        console.log("Your HP: "+yourHP)
-        console.log("Opp HP: "+oppHP)
-        $(".p-atk-hp").text(yourHP + "HP")
-        $(".p-def-hp").text(oppHP + "HP")
-        $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
-        $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
-        atk_boost += atk_boost
-        
+        if(!atk_lock){
+            oppHP = oppHP - atk_boost
+            yourHP = yourHP - yourOpp.ctr_atk
+            console.log("Your HP: "+yourHP)
+            console.log("Opp HP: "+oppHP)
+            $(".p-atk-hp").text(yourHP + "HP")
+            $(".p-def-hp").text(oppHP + "HP")
+            $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
+            $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
+            atk_boost += atk_boost
+            if(yourHP <= 0){
+                atk_lock = true
+                $(".player-atk").css("background", "gray")
+                $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
+                $(".p-atk-hp").css("color", "red")
+                $(".activity-log").append("You were defeated by "+yourOpp.name+".<br>")
+            }
+            else if(oppHP <= 0){
+                atk_lock = true
+                $(".player-def").css("background","gray")
+                $(".p-def-name").css("color", "rgba(228, 228, 228, 0.536)");
+                $(".p-def-hp").css("color", "red")
+                $(".activity-log").append("You defeated " + yourOpp.name +". <br>Select your next opponent..<br>")
+            }
+
+        }
 
     })
 
