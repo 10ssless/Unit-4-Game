@@ -53,12 +53,19 @@ h1{
     
 }
 
-.activity-log {
+.activity-log,.timer{
     font-size: 12px;
     font-family: 'Courier New', Courier, monospace;
     overflow: scroll;
     height: 270px;
 
+}
+
+.timer {
+    font-size: 20px;
+    position: absolute;
+    right: 100px;
+    bottom: 0px;
 }
 
 button {
@@ -89,11 +96,18 @@ button:hover {
 a{
     text-decoration: none;
     color: rgb(164, 143, 186);
-    transition-property: color;
+    transition-property: color,border-color;
     transition-duration: 1s;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(164, 143, 186);
+    padding: 2px 8px 2px 8px;
+    background: rgb(255, 255, 255);
 }
 
 a:hover{
     text-decoration: none;
-    color: rgb(205, 204, 215)
+    color:rgb(188, 184, 192);
+    border-color:rgb(188, 184, 192);
 }
+

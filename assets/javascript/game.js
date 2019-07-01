@@ -24,6 +24,9 @@ create reset button to reset entire game, incl hp, character back to top
 
 
 $(document).ready(function(){
+
+
+
     var p1 = {
         name: "Player 1",
         hp: 100,
@@ -62,9 +65,15 @@ $(document).ready(function(){
     var atk_boost;
     var atk_lock = false;
     var opps = 3;
+    var atk_count = 0;
+
+
+    
     
     
     $(".player-select").click(function(){
+        
+        
         if(!p1_lock){
             select = $.trim($(this).text()).substring(0,8)      //get character that player chose
             // console.log("Selected: "+select)
@@ -104,27 +113,44 @@ $(document).ready(function(){
             p2_lock = true                                  // lock in yourOpp
             $(".atk-button").css("visibility", "visible")                     
             oppHP = yourOpp.hp                                  // assign variables for hp & atk values to modify during battle
-            atk_boost = yourPlayer.atk;
-            console.log("you: "+yourPlayer.name)
-            console.log("enemy: "+yourOpp.name)
+            atk_boost = yourPlayer.atk * (atk_count + 1)
+            // console.log("you: "+yourPlayer.name)
+            // console.log("enemy: "+yourOpp.name)
             atk_lock = false;
         }
     })
+
+    var start = new Date;
+    var timer = "";
+
+    function pad(str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
     
     $(".atk-button").click(function(){
+        timer = setInterval(function () {
+            $('.timer').text(pad((new Date - start), 10));
+        });
         if(!atk_lock){                                  // prevents extra attack clicks
             oppHP = oppHP - atk_boost                   // update hp values
             yourHP = yourHP - yourOpp.ctr_atk           // print to activity log
-            console.log("Your HP: "+yourHP)
-            console.log("Opp HP: "+oppHP)
+            atk_count += 1;
+            // console.log("Attack count: "+atk_count)
+            // console.log("Attack power: "+atk_boost)
+            // console.log("Your HP: "+yourHP)
+            // console.log("Opp HP: "+oppHP)
             $(".p-atk-hp").text(yourHP + "HP")
             $(".p-def-hp").text(oppHP + "HP")
             $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
             $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
             $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
-            atk_boost += atk_boost                      // increase your attack power
+            atk_boost = yourPlayer.atk*(atk_count+1)                     // increase your attack power
+            // clearInterval(timer)
             if(yourHP <=0 && oppHP <= 0){
                 atk_lock = true                         
+                // clearInterval(timer)
+                // $(".timer").text(timer)
                 $(".player-atk").css("background", "gray")
                 $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
                 $(".p-atk-hp").css("color", "red")
@@ -136,10 +162,12 @@ $(document).ready(function(){
                 $(".try").fadeToggle(2000).fadeToggle(2000).fadeToggle(2000).fadeToggle(2000)
                 $(".atk-button").css("visibility", "hidden")
                 $(".atk-button:hover").css("visibility", "hidden")
-
+                
             }
             else if(yourHP <= 0){                            // if you lose
                 atk_lock = true                         
+                // clearInterval(timer)
+                // $(".timer").text(timer)
                 $(".player-atk").css("background", "gray")
                 $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
                 $(".p-atk-hp").css("color", "red")
@@ -152,6 +180,8 @@ $(document).ready(function(){
             else if(oppHP <= 0){                        // if you win
                 atk_lock = true
                 opps -= 1;
+                // clearInterval(timer)
+                // $(".timer").text(timer)
                 $(".player-def").css("background","gray")
                 $(".p-def-name").css("color", "rgba(228, 228, 228, 0.536)");
                 $(".p-def-hp").css("color", "red")
@@ -177,6 +207,8 @@ $(document).ready(function(){
         }
 
     })
+
+    
 
 
 
