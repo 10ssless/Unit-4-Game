@@ -28,7 +28,7 @@ $(document).ready(function(){
         name: "Player 1",
         hp: 100,
         atk: 20,
-        ctr_atk: 20,
+        ctr_atk: 30,
     }
     var p2 = {
         name: "Player 2",
@@ -46,7 +46,7 @@ $(document).ready(function(){
         name: "Player 4",
         hp: 90,
         atk: 10,
-        ctr_atk: 15,
+        ctr_atk: 35,
     }
 
     var players = [p1, p2, p3, p4]
@@ -92,52 +92,55 @@ $(document).ready(function(){
             // console.log("yourOpp: "+yourPlayer.name)
             
             $(this).css("visibility", "hidden")                  //place on placard
+            $(".player-def").css("background", "rgb(255, 101, 101)")
             $(".p-def-name").text(yourOpp.name).css("color", "black");
             $(".p-def-hp").text(yourOpp.hp  + "HP").css("color", "black")
             $(this).html("")
             $(".activity-log").append("Your opponent is: " + yourOpp.name + " <br>")
             p2_lock = true                                  // lock in yourOpp
             $(".atk-button").css("visibility", "visible")
-            yourHP = yourPlayer.hp
+            yourHP = yourPlayer.hp                      // assign variables for hp & atk values to modify during battle
             oppHP = yourOpp.hp
             atk_boost = yourPlayer.atk;
+            console.log("you: "+yourPlayer.name)
+            console.log("enemy: "+yourOpp.name)
+            atk_lock = false;
         }
-        
     })
     
-    // var yourHP = yourPlayer.hp
-    // var oppHP = yourOpp.hp
-    // console.log("Your HP: " + yourHP)
-    // console.log("Opp HP: " + oppHP)
-    // var atk_boost;
-    // var yourHP;
-    // var oppHP;
-    
-    
     $(".atk-button").click(function(){
-        if(!atk_lock){
-            oppHP = oppHP - atk_boost
-            yourHP = yourHP - yourOpp.ctr_atk
-            console.log("Your HP: "+yourHP)
-            console.log("Opp HP: "+oppHP)
+        if(!atk_lock){                                  // prevents extra attack clicks
+            oppHP = oppHP - atk_boost                   // update hp values
+            yourHP = yourHP - yourOpp.ctr_atk           // print to activity log
             $(".p-atk-hp").text(yourHP + "HP")
             $(".p-def-hp").text(oppHP + "HP")
             $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
             $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
-            atk_boost += atk_boost
-            if(yourHP <= 0){
-                atk_lock = true
+            atk_boost += atk_boost                      // increase your attack power
+            if(yourHP <= 0){                            // if you lose
+                atk_lock = true                         
                 $(".player-atk").css("background", "gray")
                 $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
                 $(".p-atk-hp").css("color", "red")
                 $(".activity-log").append("You were defeated by "+yourOpp.name+".<br>")
+                $(".atk-button").css("visibility", "hidden")
             }
-            else if(oppHP <= 0){
+            else if(oppHP <= 0){                        // if you win
                 atk_lock = true
                 $(".player-def").css("background","gray")
                 $(".p-def-name").css("color", "rgba(228, 228, 228, 0.536)");
                 $(".p-def-hp").css("color", "red")
-                $(".activity-log").append("You defeated " + yourOpp.name +". <br>Select your next opponent..<br>")
+                $(".activity-log").append("You defeated " + yourOpp.name +". <br>Select your next opponent<span id='ellipsis'>.</span><br>")
+                p2_lock = false                         // allow next character click to be next enemy
+                setInterval(function () {
+                    var th = $("#ellipsis");
+                    if (th.text().length < 3) {
+                        th.text(th.text() + ".");
+                    } else {
+                        th.text("");
+                    }
+                }, 600);
+                
             }
 
         }

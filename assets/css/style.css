@@ -50,12 +50,14 @@ h1{
 
 .p-atk-hp,.p-def-hp{
     background:rgba(228, 228, 228, 0.536);
-    c
+    
 }
 
 .activity-log {
     font-size: 12px;
     font-family: 'Courier New', Courier, monospace;
+    overflow: scroll;
+    
 }
 
 button {
