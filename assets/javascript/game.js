@@ -66,6 +66,15 @@ $(document).ready(function(){
     var atk_count = 0;
     var gameRunning = false
 
+    function flashAtk(){
+        $(".player-atk").fadeToggle(600)
+    }
+    function flashDef(){
+        $(".player-def").fadeToggle(600)
+    }
+
+    var flashAtkInterval = setInterval(flashAtk,1000)
+    var flashDefInterval = setInterval(flashDef,1000)
 
     
     $(".player-select").click(function(){
@@ -80,12 +89,17 @@ $(document).ready(function(){
             }
             // console.log("yourPlayer: "+yourPlayer.name)
             $(this).css("visibility","hidden")                  //place on placard
+            // $(".player-atk:before").css("top", "0px").css("bottom", "0px").css("left", "0px").css("right", "0px")
+            clearInterval(flashAtkInterval)
+            $(".player-atk").show()
             $(".player-atk").css("border-color", "rgb(76, 186, 223)").css("background", "black")
             $(".p-atk-name").text(yourPlayer.name).css("color", "rgb(76, 186, 223)")
             $(".p-atk-hp").text(yourPlayer.hp + "HP").css("color", "rgb(76, 186, 223)").css("border-color", "rgb(76, 186, 223)")
             $(this).html("")
+            $(".activity-log").animate({
+                scrollTop: 1000
+            }, 3000)
             $(".activity-log").append("You selected: "+yourPlayer.name+"<br>")
-            $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
             p1_lock = true                                      // lock in yourPlayer
             yourHP = yourPlayer.hp 
         }
@@ -100,12 +114,18 @@ $(document).ready(function(){
             // console.log("yourOpp: "+yourPlayer.name)
             
             $(this).css("visibility", "hidden")                  //place on placard
+            // clearInterval(flashDefInterval)
+            // $(".player-def").fadeToggle(
+            clearInterval(flashDefInterval)
+            $(".player-def").show()
             $(".player-def").css("border-color", "rgb(255, 101, 101)").css("background","black")
             $(".p-def-name").text(yourOpp.name).css("color", "rgb(255, 101, 101)")
             $(".p-def-hp").text(yourOpp.hp + "HP").css("color", "rgb(255, 101, 101)").css("border-color", "rgb(255, 101, 101)")
             $(this).html("")
+            $(".activity-log").animate({
+                scrollTop: 1000
+            }, 3000)
             $(".activity-log").append("Your opponent is: " + yourOpp.name + " <br>")
-            $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
             p2_lock = true                                      // lock in yourOpp
             $(".atk-button").css("visibility", "visible")                     
             oppHP = yourOpp.hp                                  // assign variables for hp & atk values to modify during battle
@@ -144,9 +164,11 @@ $(document).ready(function(){
                 // console.log("Opp HP: "+oppHP)
                 $(".p-atk-hp").text(yourHP + "HP")
                 $(".p-def-hp").text(oppHP + "HP")
+                $(".activity-log").animate({
+                    scrollTop: 1000
+                }, 3000)
                 $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
                 $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
-                $(".activity-log").animate({scrollTop: $('.activity-log').height()})
                 atk_boost = yourPlayer.atk*(atk_count+1)                     // increase your attack power
                 if(yourHP <=0 && oppHP <= 0){
                     atk_lock = true                         
@@ -157,9 +179,11 @@ $(document).ready(function(){
                     $(".player-def").css("border-color", "rgb(85, 85, 85)")
                     $(".p-def-name").css("color", "rgb(85, 85, 85)");
                     $(".p-def-hp").css("color", "red").css("border-color", "rgb(85, 85, 85)")
+                    $(".activity-log").animate({
+                        scrollTop: 1000
+                    }, 3000)
                     $(".activity-log").append("You defeated " + yourOpp.name +", but were killed in the process.<br><span class='try'>Try again.</span><br>")
-                    $(".activity-log").animate({ scrollTop: $('.activity-log').height() })
-                    $(".try").fadeToggle(2000).fadeToggle(2000).fadeToggle(2000).fadeToggle(2000)
+                    $(".try").fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200)
                     $(".atk-button").css("visibility", "hidden")
                     $(".atk-button:hover").css("visibility", "hidden")
                     $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
@@ -171,9 +195,11 @@ $(document).ready(function(){
                     $(".player-atk").css("border-color", "rgb(85, 85, 85)")
                     $(".p-atk-name").css("color", "rgb(85, 85, 85)");
                     $(".p-atk-hp").css("color", "red").css("border-color", "rgb(85, 85, 85)")
+                    $(".activity-log").animate({
+                        scrollTop: 1000
+                    }, 3000)
                     $(".activity-log").append("You were defeated by " + yourOpp.name +".<br><span class='try'>Try again.</span><br>")
-                    $(".activity-log").animate({ scrollTop: $('.activity-log').height() })
-                    $(".try").fadeToggle(2000).fadeToggle(2000).fadeToggle(2000).fadeToggle(2000)
+                    $(".try").fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200)
                     $(".atk-button").css("visibility", "hidden")
                     $(".atk-button:hover").css("visibility", "hidden")
                     $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
@@ -187,13 +213,19 @@ $(document).ready(function(){
                     if(opps == 0){
                         window.clearInterval(timer);
                         // $(".player-atk").css("background", "rgb(197, 245, 152)")
-                        $(".activity-log").append("You defeated " + yourOpp.name +". <br>You are the champion.<br>")
-                        $(".activity-log").animate({ scrollTop: $('.activity-log').height()});
+                        $(".activity-log").animate({
+                            scrollTop: 3000
+                        }, )
+                        $(".activity-log").append("You defeated " + yourOpp.name +". <br><span class='try'>You are the champion.</span><br>")
+                        $(".try").fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200)
+                        // $(".activity-log").animate({scrollTop: $('.activity-log').height()})
                         $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
                     }
                     else{
+                        $(".activity-log").animate({
+                            scrollTop: 1000
+                        }, 3000)
                         $(".activity-log").append("You defeated " + yourOpp.name +". <br>Select your next opponent<span class='ellipsis'>.</span><br>")
-                        $(".activity-log").animate({ scrollTop: $('.activity-log').height()});
                         p2_lock = false                         // allow next character click to be next enemy
                         setInterval(function () {               // created animated ellipsis
                             var th = $(".ellipsis");
