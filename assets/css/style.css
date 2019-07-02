@@ -89,8 +89,8 @@ h1{
     padding: 60px 50px 60px 50px;
     border-style: solid;
     border-width: 1px;
-    transition-property: color,background,border-color;
-    transition-duration: .5s;
+    /* transition-property: color,background,border-color; */
+    /* transition-duration: .5s; */
     /* box-shadow: 5px 5px 0px ghostwhite */
     
 }
@@ -139,8 +139,8 @@ h1{
     /* top: 20px;
     right: 20px;
     z-index: 4; */
-    transition-property: color,border-color;
-    transition-duration: 1s;
+    /* transition-property: color,border-color; */
+    /* transition-duration: 0.5s; */
 }
 
 .p-atk-hp{
@@ -161,11 +161,10 @@ h1{
     font-family: 'Courier New', Courier, monospace;
     overflow: scroll;
     height: 200px;
-   
-
 }
 
 .activity-log{
+    /* position: absolute */
     margin-left: 200px;
     text-align: bottom; 
     width: 50%;
@@ -185,7 +184,6 @@ button {
     background: none;
     /* color: ghostwhite; */
     color: rgb(72, 255, 87);
-    
 }
 
 button:hover {

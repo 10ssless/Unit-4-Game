@@ -65,16 +65,22 @@ $(document).ready(function(){
     var opps = 3;
     var atk_count = 0;
     var gameRunning = false
+    var fadeAtk = 0
+    var fadeDef = 0
 
     function flashAtk(){
         $(".player-atk").fadeToggle(600)
+        fadeAtk++
     }
     function flashDef(){
         $(".player-def").fadeToggle(600)
+        fadeDef++
     }
+
 
     var flashAtkInterval = setInterval(flashAtk,1000)
     var flashDefInterval = setInterval(flashDef,1000)
+    
 
     
     $(".player-select").click(function(){
@@ -91,14 +97,14 @@ $(document).ready(function(){
             $(this).css("visibility","hidden")                  //place on placard
             // $(".player-atk:before").css("top", "0px").css("bottom", "0px").css("left", "0px").css("right", "0px")
             clearInterval(flashAtkInterval)
-            $(".player-atk").show()
+            if (fadeAtk % 2 == 1) {
+                $(".player-atk").fadeToggle(1000)
+            }
             $(".player-atk").css("border-color", "rgb(76, 186, 223)").css("background", "black")
             $(".p-atk-name").text(yourPlayer.name).css("color", "rgb(76, 186, 223)")
             $(".p-atk-hp").text(yourPlayer.hp + "HP").css("color", "rgb(76, 186, 223)").css("border-color", "rgb(76, 186, 223)")
             $(this).html("")
-            $(".activity-log").animate({
-                scrollTop: 1000
-            }, 3000)
+            $(".activity-log").animate({scrollTop: 1000}, 3000)
             $(".activity-log").append("You selected: "+yourPlayer.name+"<br>")
             p1_lock = true                                      // lock in yourPlayer
             yourHP = yourPlayer.hp 
@@ -117,17 +123,17 @@ $(document).ready(function(){
             // clearInterval(flashDefInterval)
             // $(".player-def").fadeToggle(
             clearInterval(flashDefInterval)
-            $(".player-def").show()
+            if(fadeDef % 2 == 1 && !gameRunning){
+                $(".player-def").fadeToggle(1000)
+            }
             $(".player-def").css("border-color", "rgb(255, 101, 101)").css("background","black")
             $(".p-def-name").text(yourOpp.name).css("color", "rgb(255, 101, 101)")
             $(".p-def-hp").text(yourOpp.hp + "HP").css("color", "rgb(255, 101, 101)").css("border-color", "rgb(255, 101, 101)")
             $(this).html("")
-            $(".activity-log").animate({
-                scrollTop: 1000
-            }, 3000)
+            $(".activity-log").animate({scrollTop: 1000}, 3000)
             $(".activity-log").append("Your opponent is: " + yourOpp.name + " <br>")
             p2_lock = true                                      // lock in yourOpp
-            $(".atk-button").css("visibility", "visible")                     
+            $(".atk-button").css("visibility", "visible") 
             oppHP = yourOpp.hp                                  // assign variables for hp & atk values to modify during battle
             atk_boost = yourPlayer.atk * (atk_count + 1)
             // console.log("you: "+yourPlayer.name)
@@ -168,7 +174,7 @@ $(document).ready(function(){
                     scrollTop: 1000
                 }, 3000)
                 $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
-                $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
+                $(".activity-log").append(yourOpp.name+" counter-attacked you for " +yourOpp.ctr_atk + " damage.<br>")
                 atk_boost = yourPlayer.atk*(atk_count+1)                     // increase your attack power
                 if(yourHP <=0 && oppHP <= 0){
                     atk_lock = true                         
