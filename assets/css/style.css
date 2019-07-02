@@ -14,7 +14,8 @@ h1{
 }
 
 .player-select:hover{
-    background: rgb(164, 186, 143)
+    background: rgb(233, 197, 152)
+    /* background: rgb(195, 228, 164) */
 }
 
 .player-select:hover .hp{
@@ -58,7 +59,13 @@ h1{
     font-family: 'Courier New', Courier, monospace;
     overflow: scroll;
     height: 270px;
+   
 
+}
+
+.activity-log{
+    text-align: bottom; 
+    width: 80%;
 }
 
 .timer {
