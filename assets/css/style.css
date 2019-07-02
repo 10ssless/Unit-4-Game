@@ -1,25 +1,56 @@
+@font-face {
+    font-family: custom;
+    src: url(../fonts/camcorder_ms_reg_6pre-webfont.ttf)
+}
+
 body{
+    font-family: custom;
     font-size: 24px;
-    /* background: ghostwhite; */
+    background: black;
+    color: rgb(72, 255, 87);
+
+}
+
+.game {
+    width: auto;
 }
 
 h1{
     text-align: center;
+    /* color: ghostwhite; */
+    color: rgb(72, 255, 87);
 }
 
 .player{
+    /* color: ghostwhite; */
+    color: rgb(72, 255, 87);
     text-align: center;
     padding: 30px 30px 30px 0px;
     position: relative;
+    
+}
+
+.select-row {
+    padding-left: 320px;
+    padding-right: 320px;
 }
 
 .player-select:hover{
-    background: rgb(233, 197, 152)
+    /* background: rgb(233, 197, 152); */
     /* background: rgb(195, 228, 164) */
+    border-style: solid;
+    border-width: 1px;
+    /* border-color: ghostwhite; */
+    border-color: rgb(72, 255, 87);
+    
 }
 
 .player-select:hover .hp{
-    background:rgba(228, 228, 228, 0.536)
+    /* background:rgba(228, 228, 228, 0.536) */
+    border-style: solid;
+    border-width: 1px;
+    /* border-color: ghostwhite; */
+    border-color: rgb(72, 255, 87);
 }
 
 
@@ -29,54 +60,93 @@ h1{
     top: 3px;
     text-transform: uppercase;
     font-size: 16px;
-    padding:10px; 
-
+    padding:5px; 
+    
 }
 
+.placard {
+    background-image: url(../images/green-strip.JPG);
+    /* background: rgb(0, 0, 0); */
+    /* transition-property: background-image;
+    transition-duration: 2s; */
+    /* background-blend-mode: overlay; */
+    height: 178px;
+    width: 100%;
+    z-index: 1;
+}
 
+.placard-row{
+    z-index: 3;
+    padding-top: 10px;
+    padding-left: 240px;
+    padding-right: 240px;
+    height: inherit;
+}
 
+.player-atk,.player-def{
+    padding: 60px 50px 60px 50px;
+    border-style: solid;
+    border-width: 1px;
+    
+}
 
 
 .player-atk{
-    padding: 60px 50px 60px 50px;
-    background: lightblue;
-    color: lightblue;
+    color: rgb(76, 186, 223);
+    border-color: rgb(76, 186, 223);
+    /* box-shadow: 0px 0px 120px rgb(76, 186, 223) */
+    margin-right: 30px;
 }
 
 .player-def{
-    padding: 60px 50px 60px 50px;
-    background: rgb(255, 101, 101);
     color: rgb(255, 101, 101);
+    border-color: rgb(255, 101, 101);
+    /* box-shadow: 0px 0px 120px rgb(255, 101, 101) */
+    margin-left: 30px;
 }
 
-.p-atk-hp,.p-def-hp{
-    background:rgba(228, 228, 228, 0.536);
-    
+.p-atk-hp{
+    /* background:rgba(228, 228, 228, 0.536); */
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(76, 186, 223);
+}
+.p-def-hp{
+    /* background:rgba(228, 228, 228, 0.536); */
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 101, 101);
 }
 
 .activity-log,.timer{
     font-size: 12px;
     font-family: 'Courier New', Courier, monospace;
     overflow: scroll;
-    height: 270px;
+    height: 200px;
    
 
 }
 
 .activity-log{
+    margin-left: 200px;
     text-align: bottom; 
     width: 80%;
+    color: rgb(72, 255, 87);
+    font-size: 15px;
 }
 
 .timer {
     font-size: 20px;
     position: absolute;
-    right: 100px;
+    right: 20px;
     bottom: 0px;
 }
 
 button {
     border: none;
+    background: none;
+    /* color: ghostwhite; */
+    color: rgb(72, 255, 87);
     
 }
 
@@ -91,25 +161,29 @@ button:hover {
     /* margin-right:30%; */
     transition-property: visibility;
     transition-duration: 1s;
+    
 }
 
 .restart {
     position: absolute;
-    right: 100px;
-    bottom: 50px;
+    right: 370px;
+    bottom: 0px;
     font-family: 'Courier New',Courier,monospace;
+    /* visibility: hidden; */
 }
 
 a{
+    background: none;
+    padding: 2px 8px 2px 8px;
     text-decoration: none;
-    color: rgb(164, 143, 186);
-    transition-property: color,border-color;
-    transition-duration: 1s;
+    color: black;
+    /* color: rgb(72, 255, 87); */
     border-style: solid;
     border-width: 1px;
-    border-color:rgb(164, 143, 186);
-    padding: 2px 8px 2px 8px;
-    background: rgb(255, 255, 255);
+    border-color:black;
+    /* border-color:rgb(72, 255, 87); */
+    transition-property: color,border-color;
+    transition-duration: 4s;
 }
 
 a:hover{

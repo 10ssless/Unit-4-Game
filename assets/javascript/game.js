@@ -80,8 +80,9 @@ $(document).ready(function(){
             }
             // console.log("yourPlayer: "+yourPlayer.name)
             $(this).css("visibility","hidden")                  //place on placard
-            $(".p-atk-name").text(yourPlayer.name).css("color","black");
-            $(".p-atk-hp").text(yourPlayer.hp+"HP").css("color","black")
+            $(".player-atk").css("border-color", "rgb(76, 186, 223)").css("background", "black")
+            $(".p-atk-name").text(yourPlayer.name).css("color", "rgb(76, 186, 223)")
+            $(".p-atk-hp").text(yourPlayer.hp + "HP").css("color", "rgb(76, 186, 223)").css("border-color", "rgb(76, 186, 223)")
             $(this).html("")
             $(".activity-log").append("You selected: "+yourPlayer.name+"<br>")
             $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
@@ -99,9 +100,9 @@ $(document).ready(function(){
             // console.log("yourOpp: "+yourPlayer.name)
             
             $(this).css("visibility", "hidden")                  //place on placard
-            $(".player-def").css("background", "rgb(255, 101, 101)")
-            $(".p-def-name").text(yourOpp.name).css("color", "black");
-            $(".p-def-hp").text(yourOpp.hp  + "HP").css("color", "black")
+            $(".player-def").css("border-color", "rgb(255, 101, 101)").css("background","black")
+            $(".p-def-name").text(yourOpp.name).css("color", "rgb(255, 101, 101)")
+            $(".p-def-hp").text(yourOpp.hp + "HP").css("color", "rgb(255, 101, 101)").css("border-color", "rgb(255, 101, 101)")
             $(this).html("")
             $(".activity-log").append("Your opponent is: " + yourOpp.name + " <br>")
             $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
@@ -112,6 +113,7 @@ $(document).ready(function(){
             // console.log("you: "+yourPlayer.name)
             // console.log("enemy: "+yourOpp.name)
             atk_lock = false;
+            
         }
     })
 
@@ -127,7 +129,7 @@ $(document).ready(function(){
     $(".atk-button").click(function(){
         if(!gameRunning){
             timer = window.setInterval(function () {
-                $('.timer').text(pad((new Date - start), 10));
+                $('.timer').text(pad((new Date - start), 20));
             });
             gameRunning = true
         }
@@ -144,56 +146,50 @@ $(document).ready(function(){
                 $(".p-def-hp").text(oppHP + "HP")
                 $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
                 $(".activity-log").append(yourOpp.name+" counter-attacked you back for " +yourOpp.ctr_atk + " damage.<br>")
-                $(".activity-log").animate({ scrollTop: $('.activity-log').height() });
+                $(".activity-log").animate({scrollTop: $('.activity-log').height()})
                 atk_boost = yourPlayer.atk*(atk_count+1)                     // increase your attack power
-                // clearInterval(timer)
                 if(yourHP <=0 && oppHP <= 0){
                     atk_lock = true                         
                     window.clearInterval(timer);
-                    // $(".timer").text("you committed suicide")
-                    $(".player-atk").css("background", "gray")
-                    $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
-                    $(".p-atk-hp").css("color", "red")
-                    $(".player-def").css("background", "gray")
-                    $(".p-def-name").css("color", "rgba(228, 228, 228, 0.536)");
-                    $(".p-def-hp").css("color", "red")
+                    $(".player-atk").css("border-color", "rgb(85, 85, 85)")
+                    $(".p-atk-name").css("color", "rgb(85, 85, 85)");
+                    $(".p-atk-hp").css("color", "red").css("border-color", "rgb(85, 85, 85)")
+                    $(".player-def").css("border-color", "rgb(85, 85, 85)")
+                    $(".p-def-name").css("color", "rgb(85, 85, 85)");
+                    $(".p-def-hp").css("color", "red").css("border-color", "rgb(85, 85, 85)")
                     $(".activity-log").append("You defeated " + yourOpp.name +", but were killed in the process.<br><span class='try'>Try again.</span><br>")
                     $(".activity-log").animate({ scrollTop: $('.activity-log').height() })
                     $(".try").fadeToggle(2000).fadeToggle(2000).fadeToggle(2000).fadeToggle(2000)
                     $(".atk-button").css("visibility", "hidden")
                     $(".atk-button:hover").css("visibility", "hidden")
+                    $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
                     
                 }
                 else if (yourHP <= 0) {                            // if you lose, change color, update activity log
                     atk_lock = true  
-                    // console.log("timer if you lose" + timer)
-                    // stopTime(timer)
                     window.clearInterval(timer);
-                    // $(".timer").text("you lost")
-                    $(".player-atk").css("background", "gray")
-                    $(".p-atk-name").css("color", "rgba(228, 228, 228, 0.536)");
-                    $(".p-atk-hp").css("color", "red")
+                    $(".player-atk").css("border-color", "rgb(85, 85, 85)")
+                    $(".p-atk-name").css("color", "rgb(85, 85, 85)");
+                    $(".p-atk-hp").css("color", "red").css("border-color", "rgb(85, 85, 85)")
                     $(".activity-log").append("You were defeated by " + yourOpp.name +".<br><span class='try'>Try again.</span><br>")
                     $(".activity-log").animate({ scrollTop: $('.activity-log').height() })
                     $(".try").fadeToggle(2000).fadeToggle(2000).fadeToggle(2000).fadeToggle(2000)
                     $(".atk-button").css("visibility", "hidden")
                     $(".atk-button:hover").css("visibility", "hidden")
+                    $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
                 }
                 else if(oppHP <= 0){                            // if you win, change color, update activity log
                     atk_lock = true
                     opps -= 1;
-                    // console.log("timer if you win "+timer)
-                    $(".player-def").css("background","gray")
-                    $(".p-def-name").css("color", "rgba(228, 228, 228, 0.536)");
-                    $(".p-def-hp").css("color", "red")
+                    $(".player-def").css("border-color","rgb(85, 85, 85)")
+                    $(".p-def-name").css("color", "rgb(85, 85, 85)");
+                    $(".p-def-hp").css("color", "red").css("border-color", "rgb(85, 85, 85)")
                     if(opps == 0){
-                        // stopTime(timer)
-                        // $(".timer").text($(".timer").text())
-                        // $(".timer").text("you won")
                         window.clearInterval(timer);
                         // $(".player-atk").css("background", "rgb(197, 245, 152)")
                         $(".activity-log").append("You defeated " + yourOpp.name +". <br>You are the champion.<br>")
                         $(".activity-log").animate({ scrollTop: $('.activity-log').height()});
+                        $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
                     }
                     else{
                         $(".activity-log").append("You defeated " + yourOpp.name +". <br>Select your next opponent<span class='ellipsis'>.</span><br>")
