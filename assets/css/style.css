@@ -228,3 +228,13 @@ a:hover{
     border-color:rgb(188, 184, 192);
 }
 
+.sonar-box {
+    position: fixed;
+    top:250px;
+    right:0px;
+}
+
+.sonar-gif {
+    border: 1px solid black;
+    border-radius: 300px;
+}
