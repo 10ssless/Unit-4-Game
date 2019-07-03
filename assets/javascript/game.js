@@ -205,7 +205,7 @@ $(document).ready(function(){
                         scrollTop: 1000
                     }, 3000)
                     $(".activity-log").append("You were defeated by " + yourOpp.name +".<br><span class='try'>Try again.</span><br>")
-                    $(".try").fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200)
+                    $(".try").fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200)
                     $(".atk-button").css("visibility", "hidden")
                     $(".atk-button:hover").css("visibility", "hidden")
                     $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
@@ -223,7 +223,7 @@ $(document).ready(function(){
                             scrollTop: 3000
                         }, )
                         $(".activity-log").append("You defeated " + yourOpp.name +". <br><span class='try'>You are the champion.</span><br>")
-                        $(".try").fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200)
+                        $(".try").fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200).fadeToggle(1200)
                         // $(".activity-log").animate({scrollTop: $('.activity-log').height()})
                         $("a").css("color", "rgb(72, 255, 87)").css("border-color", "rgb(72, 255, 87)")
                     }
