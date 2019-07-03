@@ -173,8 +173,8 @@ $(document).ready(function(){
                 $(".activity-log").animate({
                     scrollTop: 1000
                 }, 3000)
-                $(".activity-log").append("You attacked " + yourOpp.name + " for "+atk_boost+" damage.<br>")
-                $(".activity-log").append(yourOpp.name+" counter-attacked you for " +yourOpp.ctr_atk + " damage.<br>")
+                $(".activity-log").append("You attacked " + yourOpp.name + " for <span class='atk-pts'>"+atk_boost+"</span> damage.<br>")
+                $(".activity-log").append(yourOpp.name + " counter-attacked you for <span class='atk-pts'>"+yourOpp.ctr_atk+"</span> damage.<br>")
                 atk_boost = yourPlayer.atk*(atk_count+1)                     // increase your attack power
                 if(yourHP <=0 && oppHP <= 0){
                     atk_lock = true                         

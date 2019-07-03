@@ -237,4 +237,14 @@ a:hover{
 .sonar-gif {
     border: 1px solid black;
     border-radius: 300px;
+    filter: contrast(120%)
 }
+
+.atk-pts {
+    color: rgb(255, 57, 57);
+    /* font-size: 20px */
+}
+
+/* .champion {
+    color: rgb(37, 37, 255)
+} */
